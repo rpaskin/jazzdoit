@@ -1,20 +1,37 @@
 require 'spec_helper'
 
 describe User do
-  it "works" do
-    User.new(email: "foo@bar.com", password: "foobar").valid?.should be_true
+  before(:each) do
+    @user = User.new(password: "foobar", email: "foo@bar.com")
   end
-  it "requires password" do
-    User.new(email: "foo@bar.com").valid?.should be_false
+
+  subject { @user }
+
+  it { should respond_to(:password) }
+  it { should respond_to(:email) }
+
+  it { should be_valid }
+
+  describe "when password is not present" do
+    before { @user.password = "" }
+    it { should_not be_valid }
   end
-  it "requires email" do
-    User.new(password: "foobar").valid?.should be_false
+
+  describe "when email is not present" do
+    before { @user.email = "" }
+    it { should_not be_valid }
   end
-  it "rejects invalid email" do
-    User.new(email: "foo@@bar.com", password: "foobar").valid?.should be_false
+
+  describe "when email is invalid" do
+    before { @user.email = "foo@@bar.com" }
+    it { should_not be_valid }
   end
-  it "rejects duplicated email" do
-    User.new(email: "foo@bar.com", password: "foobar").save!
-    User.new(email: "foo@bar.com", password: "barfoo").valid?.should be_false
+
+  describe "when email is invalid" do
+    before do
+      @user.save!
+      @user = User.new(password: "foobar", email: "foo@bar.com")
+    end
+    it { should_not be_valid }
   end
 end
