@@ -1,136 +1,118 @@
 require 'spec_helper'
 
 describe UsersController do
+  let(:created_user)     { FactoryGirl.create(:user) }
+  let(:built_user)       { FactoryGirl.build(:user) }
+  let(:valid_attributes) { FactoryGirl.attributes_for(:user) }
 
-  let(:valid_attributes) { { "email" => "foo@bar.com", "password" => "foobar" } }
-
-  let(:valid_session) { {} }
-
-  describe "GET index" do
-    it "assigns all users as @users" do
-      user = User.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:users).should eq([user])
+  describe "GET users" do
+    before do
+      created_user
+      visit users_path
     end
+
+    subject { page }
+    it { should have_content("Listing users") }
+    it { should have_content(created_user.email) }
+    it { should have_content(created_user.password) }
   end
 
-  describe "GET show" do
-    it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :show, {:id => user.to_param}, valid_session
-      assigns(:user).should eq(user)
+  describe "GET user" do
+    before do
+      visit user_path(created_user)
     end
+    subject { page }
+    it { should have_content(created_user.email) }
+    it { should have_content(created_user.password) }
   end
 
   describe "GET new" do
     it "assigns a new user as @user" do
-      get :new, {}, valid_session
+      get :new
       assigns(:user).should be_a_new(User)
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :edit, {:id => user.to_param}, valid_session
-      assigns(:user).should eq(user)
+  describe "Editing" do
+    before do
+      visit edit_user_path(created_user)
     end
+    subject { page }
+    it { should have_content "Editing user" }
+    it { should have_field "user_email", with: created_user.email }
+    it { should have_field "user_password", with: created_user.password }
   end
 
-  describe "POST create" do
+  describe "Creating" do
     describe "with valid params" do
-      it "creates a new User" do
-        expect {
-          post :create, {:user => valid_attributes}, valid_session
-        }.to change(User, :count).by(1)
+      before do
+        visit new_user_path
+        fill_in "user_email", :with => built_user.email
+        fill_in "user_password", :with => built_user.password
+        click_button "Create User"
       end
-
-      it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes}, valid_session
-        assigns(:user).should be_a(User)
-        assigns(:user).should be_persisted
-      end
-
-      it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
-        response.should redirect_to(User.last)
-      end
+      subject { page }
+      it { current_path.should == user_path(User.last) }
+      it { should have_content "User was successfully created" }
+      it { should have_content(built_user.email) }
+      it { should have_content(built_user.password) }
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved user as @user" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => { "email" => "invalid value" }}, valid_session
-        assigns(:user).should be_a_new(User)
+      before do
+        visit new_user_path
+        fill_in "user_email", :with => "foo bar"
+        fill_in "user_password", :with => built_user.password
+        click_button "Create User"
       end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => { "email" => "invalid value" }}, valid_session
-        response.should render_template("new")
-      end
+      subject { page }
+      it { should have_content "Email is invalid" }
+      it { should have_field "user_email", with: "foo bar" }
+      it { should have_field "user_password", with: built_user.password }
     end
   end
 
-  describe "PUT update" do
+  describe "Updating" do
     describe "with valid params" do
-      it "updates the requested user" do
-        user = User.create! valid_attributes
-        # Assuming there are no other users in the database, this
-        # specifies that the User created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        User.any_instance.should_receive(:update).with({ "email" => "foo@bar.com", "password" => "foobar" })
-        put :update, {:id => user.to_param, :user => { "email" => "foo@bar.com", "password" => "foobar" }}, valid_session
+      before do
+        visit edit_user_path(created_user)
+        fill_in "user_email", :with => "foobar"+created_user.email
+        fill_in "user_password", :with => "foobar"+created_user.password
+        click_button "Update User"
       end
-
-      it "assigns the requested user as @user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        assigns(:user).should eq(user)
-      end
-
-      it "redirects to the user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        response.should redirect_to(user)
-      end
+      subject { page }
+      it { current_path.should == user_path(User.last) }
+      it { should have_content "User was successfully updated" }
+      it { should have_content("foobar"+created_user.email) }
+      it { should have_content("foobar"+created_user.password) }
     end
 
     describe "with invalid params" do
-      it "assigns the user as @user" do
-        user = User.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        User.any_instance.stub(:save).and_return(false)
-        put :update, {:id => user.to_param, :user => { "email" => "invalid value" }}, valid_session
-        assigns(:user).should eq(user)
+      before do
+        visit edit_user_path(created_user)
+        fill_in "user_email", :with => "foo bar"
+        click_button "Update User"
       end
-
-      it "re-renders the 'edit' template" do
-        user = User.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        User.any_instance.stub(:save).and_return(false)
-        put :update, {:id => user.to_param, :user => { "email" => "invalid value" }}, valid_session
-        response.should render_template("edit")
-      end
+      subject { page }
+      it { current_path.should == user_path(User.last) }
+      it { should have_content "Email is invalid" }
+      it { should have_field "user_email", with: "foo bar" }
+      it { should have_field "user_password", with: created_user.password }
     end
   end
 
-  describe "DELETE destroy" do
-    it "destroys the requested user" do
-      user = User.create! valid_attributes
-      expect {
-        delete :destroy, {:id => user.to_param}, valid_session
-      }.to change(User, :count).by(-1)
+  describe "Deleting" do
+    before do
+      created_user
+      visit users_path
+      click_link 'Destroy'
     end
-
-    it "redirects to the users list" do
-      user = User.create! valid_attributes
-      delete :destroy, {:id => user.to_param}, valid_session
-      response.should redirect_to(users_url)
-    end
+    subject { page }
+    it { current_path.should == users_path }
+    it { should_not have_content created_user.email }
+    it { should_not have_content created_user.password }
   end
 
+    end
+  end
 end
