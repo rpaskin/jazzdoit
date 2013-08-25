@@ -35,14 +35,21 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
+    debugger (1.6.1)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
+    diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (2.0.0)
     hike (1.2.3)
     i18n (0.6.5)
-    jbuilder (1.5.1)
+    jbuilder (1.0.2)
       activesupport (>= 3.0.0)
-      multi_json (>= 1.2.0)
-    jquery-rails (3.0.4)
+    jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
@@ -52,6 +59,7 @@ GEM
     mime-types (1.24)
     minitest (4.7.5)
     multi_json (1.7.9)
+    pg (0.15.1)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -64,6 +72,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0)
       sprockets-rails (~> 2.0.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.1)
+    rails_stdout_logging (0.0.1)
     railties (4.0.0)
       actionpack (= 4.0.0)
       activesupport (= 4.0.0)
@@ -72,6 +85,17 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rspec-core (2.14.5)
+    rspec-expectations (2.14.2)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.3)
+    rspec-rails (2.14.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     sass (3.2.10)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -80,6 +104,14 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
+    simplecov-rcov (0.2.3)
+      simplecov (>= 0.4.1)
+    simplecov-sublime-ruby-coverage (1.0.0)
+      simplecov
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -89,7 +121,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    sqlite3 (1.3.8)
+    sqlite3 (1.3.7)
     thor (0.18.1)
     thread_safe (0.1.2)
       atomic
@@ -97,10 +129,10 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.3.0)
+    turbolinks (1.1.1)
       coffee-rails
     tzinfo (0.3.37)
-    uglifier (2.1.2)
+    uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
 
@@ -108,12 +140,19 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  coffee-rails (~> 4.0.0)
-  jbuilder (~> 1.2)
-  jquery-rails
+  coffee-rails (= 4.0.0)
+  debugger
+  jbuilder (= 1.0.2)
+  jquery-rails (= 2.2.1)
+  pg (= 0.15.1)
   rails (= 4.0.0)
-  sass-rails (~> 4.0.0)
-  sdoc
-  sqlite3
-  turbolinks
-  uglifier (>= 1.3.0)
+  rails_12factor (= 0.0.2)
+  rspec-rails
+  sass-rails (= 4.0.0)
+  sdoc (= 0.3.20)
+  simplecov
+  simplecov-rcov
+  simplecov-sublime-ruby-coverage
+  sqlite3 (= 1.3.7)
+  turbolinks (= 1.1.1)
+  uglifier (= 2.1.1)
