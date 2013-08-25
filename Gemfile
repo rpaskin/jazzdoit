@@ -26,6 +26,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'launchy'
+  gem 'factory_girl_rails'
 end
 
 group :doc do
