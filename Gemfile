@@ -24,6 +24,10 @@ group :development, :test do
   gem 'debugger'
 end
 
+group :test do
+  gem 'capybara'
+end
+
 group :doc do
   gem 'sdoc', '0.3.20', require: false
 end
