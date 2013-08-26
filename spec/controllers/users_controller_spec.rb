@@ -113,6 +113,16 @@ describe UsersController do
     it { should_not have_content created_user.password }
   end
 
+  describe "Signup" do
+    before do
+      visit signup_users_path
+      fill_in "user_email", :with => built_user.email
+      fill_in "user_password", :with => built_user.password
+      click_button "Create User"
+      visit users_path # TODO visit post signup path for (:id => @user.id)
     end
+    subject { page }
+    it { should have_content(built_user.email) }
+    it { should have_content(built_user.password) }
   end
 end

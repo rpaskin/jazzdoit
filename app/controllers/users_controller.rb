@@ -12,21 +12,31 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def signup_new
+    @form_post_url = signup_users_path
+    self.new
+  end
+
   def edit
   end
 
-  def create
+  def create(form_path='new', next_path=nil)
     @user = User.new(user_params)
+    next_path = @user unless next_path.present?
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
+        format.html { redirect_to next_path, notice: 'User was successfully created.' }
+        format.json { render action: action, status: :created, location: @user }
       else
-        format.html { render action: 'new' }
+        format.html { render action: form_path }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def signup_create
+    self.create("signup_new", nil)
   end
 
   def update
