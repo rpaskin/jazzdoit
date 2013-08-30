@@ -6,6 +6,9 @@ Jazzdoit::Application.routes.draw do
     end
   end
 
+  root 'users#signup_new'
+
+  get 'user/:id' => 'users#todo_list', as: "user_todo_list"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

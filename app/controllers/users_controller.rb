@@ -59,6 +59,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def todo_list
+    @user = User.find(params[:id])
+    # @user.todo_list.build
+  end
+
   private
     def set_user
       @user = User.find(params[:id])
