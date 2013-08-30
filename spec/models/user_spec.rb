@@ -54,11 +54,18 @@ describe User do
     it { should_not be_valid }
   end
 
+  describe "when password is too small" do
+    before do
+      @user = User.new(email: "foo@bar.com",
+                       password: "12345", password_confirmation: "12345")
+    end
+    it { should_not be_valid }
+  end
+
   describe "when password_confirmation doesn't match" do
     before { @user.password_confirmation = "blablabla123" }
     it { should_not be_valid }
   end
-
 
   describe "authenticate secure password" do
     before { @user.save }
