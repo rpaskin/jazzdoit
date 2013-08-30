@@ -28,6 +28,7 @@ GEM
     addressable (2.3.5)
     arel (4.0.0)
     atomic (1.1.13)
+    bcrypt-ruby (3.0.0)
     builder (3.1.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -76,6 +77,7 @@ GEM
     mini_portile (0.5.1)
     minitest (4.7.5)
     multi_json (1.7.9)
+    mysql2 (0.3.13)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     pg (0.15.1)
@@ -161,6 +163,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby (= 3.0.0)
   capybara
   coffee-rails (= 4.0.0)
   debugger
@@ -169,6 +172,7 @@ DEPENDENCIES
   jbuilder (= 1.0.2)
   jquery-rails (= 2.2.1)
   launchy
+  mysql2
   pg (= 0.15.1)
   rails (= 4.0.0)
   rails_12factor (= 0.0.2)
