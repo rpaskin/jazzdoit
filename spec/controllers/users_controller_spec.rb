@@ -14,7 +14,7 @@ describe UsersController do
     subject { page }
     it { should have_content("Listing users") }
     it { should have_content(created_user.email) }
-    it { should have_content(created_user.password) }
+    it { should_not have_content(created_user.password) }
   end
 
   describe "GET user" do
@@ -23,7 +23,7 @@ describe UsersController do
     end
     subject { page }
     it { should have_content(created_user.email) }
-    it { should have_content(created_user.password) }
+    it { should_not have_content(created_user.password_digest) }
   end
 
   describe "GET new" do
@@ -40,7 +40,8 @@ describe UsersController do
     subject { page }
     it { should have_content "Editing user" }
     it { should have_field "user_email", with: created_user.email }
-    it { should have_field "user_password", with: created_user.password }
+    it { should have_field "user_password" }
+    it { should have_field "user_password_confirmation" }
   end
 
   describe "Creating" do
@@ -49,13 +50,15 @@ describe UsersController do
         visit new_user_path
         fill_in "user_email", :with => built_user.email
         fill_in "user_password", :with => built_user.password
+        fill_in "user_password_confirmation", :with => built_user.password
         click_button "Create User"
       end
       subject { page }
       it { current_path.should == user_path(User.last) }
       it { should have_content "User was successfully created" }
       it { should have_content(built_user.email) }
-      it { should have_content(built_user.password) }
+      it { should_not have_content(built_user.password) }
+      it { User.last.password_digest.should_not == built_user.password }
     end
 
     describe "with invalid params" do
