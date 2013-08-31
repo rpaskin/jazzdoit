@@ -8,6 +8,10 @@ Jazzdoit::Application.routes.draw do
 
   root 'users#signup_new'
 
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
+
   get 'user/:id' => 'users#todo_list', as: "user_todo_list"
 
   # The priority is based upon order of creation: first created -> highest priority.
