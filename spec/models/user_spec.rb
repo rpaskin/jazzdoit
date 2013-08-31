@@ -10,10 +10,16 @@ describe User do
   it { should respond_to(:email) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
 
   it { should be_valid }
 
   it { should respond_to(:authenticate) }
+
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
+  end
 
   describe "when password_digest is not present" do
     before { @user.password_digest = "" }
