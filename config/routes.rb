@@ -9,8 +9,8 @@ Jazzdoit::Application.routes.draw do
   root 'users#signup_new'
 
   resources :sessions, only: [:new, :create, :destroy]
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/login',  to: 'sessions#new',         via: 'get'
+  match '/logout', to: 'sessions#destroy',     via: 'delete'
 
   get 'user/:id' => 'users#todo_list', as: "user_todo_list"
 
