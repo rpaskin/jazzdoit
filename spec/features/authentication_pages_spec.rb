@@ -31,8 +31,15 @@ describe "AuthenticationPages" do
 
       it { should     have_link('Log out', href: logout_path) }
       it { should_not have_link('Log in',  href: login_path) }
-    end
 
+      describe "log out" do
+        before { click_link "Log out" }
+
+        it { should_not have_link('Log out',       href: logout_path) }
+        it { should     have_link('Log in',        href: login_path) }
+        it { should     have_link('Sign up here',  href: signup_users_path) }
+      end
+    end
   end
 
 end
