@@ -19,11 +19,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @button_label = "Update User"
   end
 
   def create(form_path='new', next_path=nil)
     @user = User.new(user_params)
     next_path = @user unless next_path.present?
+    @button_label = "Create User"
 
     respond_to do |format|
       if @user.save
