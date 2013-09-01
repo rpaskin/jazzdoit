@@ -26,11 +26,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        sign_in @user
         format.html { redirect_to next_path, notice: 'User was successfully created.' }
-        format.json { render action: action, status: :created, location: @user }
       else
         format.html { render action: form_path }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
