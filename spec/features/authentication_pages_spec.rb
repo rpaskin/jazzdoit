@@ -9,15 +9,17 @@ describe "AuthenticationPages" do
   subject { page }
 
   describe "login page" do
-    before do
-      visit login_path
-    end
+    before { visit login_path }
     it { should have_content('Log In') }
 
     describe "with invalid information" do
       before { click_button "Log in" }
-      it { should have_title('Log in') }
-      it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+      it { should have_selector('div.error', text: 'email missing, password missing') }
+
+      describe "after visiting another page" do
+        before { click_link "Home" }
+        it { should_not have_selector('div.error') }
+      end
     end
 
 		describe "with valid information" do
@@ -27,10 +29,8 @@ describe "AuthenticationPages" do
         click_button "Log in"
       end
 
-      it { should have_title(user.name) }
-      it { should have_link('Profile',    href: user_path(created_user)) }
-      it { should have_link('Log out',    href: logout_path) }
-      it { should_not have_link('Log in', href: login_path) }
+      it { should     have_link('Log out', href: logout_path) }
+      it { should_not have_link('Log in',  href: login_path) }
     end
 
   end
