@@ -6,7 +6,7 @@ Jazzdoit::Application.routes.draw do
     end
   end
 
-  root 'users#signup_new'
+  root 'sessions#new'
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new',         via: 'get'

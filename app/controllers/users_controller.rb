@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def signup_new
+    redirect_to user_todo_list_path(current_user) if signed_in?
     @form_post_url = signup_users_path
     self.new
   end

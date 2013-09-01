@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    redirect_to user_todo_list_path(current_user) if signed_in?
   end
 
   def create
