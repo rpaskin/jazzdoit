@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
   	if required_params_present && create_user
   		redirect_to user_todo_list_path(current_user)
   	else
+      flash.now[:error] = "Login incorrect" if flash.now[:error].blank?
       render 'new'
 	  end
 	end
@@ -26,13 +27,6 @@ class SessionsController < ApplicationController
     end
     flash.now[:error] = errors.join ", "
     missing_params.empty?
-  end
-
-  def email_not_taken
-    if user = User.find_by(email: params[:session][:email].downcase)
-      flash.now[:error] = "Email already taken"
-    end
-    user.blank?
   end
 
   def create_user

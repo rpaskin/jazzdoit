@@ -22,6 +22,16 @@ describe "AuthenticationPages" do
       end
     end
 
+    describe "with invalid user" do
+      before do
+        fill_in "Email",    with: "foo"+created_user.email.upcase
+        fill_in "Password", with: "bar"+created_user.password
+        click_button "Log in"
+      end
+
+      it { should have_selector('div.error', text: 'Login incorrect') }
+    end
+
 		describe "with valid information" do
       before do
         fill_in "Email",    with: created_user.email.upcase
