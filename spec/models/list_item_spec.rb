@@ -1,12 +1,5 @@
 require 'spec_helper'
 
-# t.string   "description"
-# t.string   "url"
-# t.integer  "percent_done"
-# t.datetime "percent_updated_at"
-# t.integer  "user_id"
-
-
 describe ListItem do
   before(:each) do
     @list_item = ListItem.new(description: "abcdefgh")
