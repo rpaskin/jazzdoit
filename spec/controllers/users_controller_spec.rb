@@ -44,6 +44,38 @@ describe UsersController do
     it { should have_field "user_password_confirmation" }
   end
 
+  describe "Updating" do
+   describe "with valid params" do
+     before do
+       visit edit_user_path(created_user)
+       fill_in "user_email", :with => "foobar"+created_user.email
+       fill_in "user_password", :with => "foobar"+created_user.password
+       fill_in "user_password_confirmation", :with => "foobar"+created_user.password
+       click_button "Update User"
+     end
+     subject { page }
+     it { current_path.should == user_path(User.last) }
+     it { should have_content "User was successfully updated" }
+     it { should have_content("foobar"+created_user.email) }
+   end
+
+   describe "with invalid params" do
+     before do
+       visit edit_user_path(created_user)
+       fill_in "user_email", :with => "foo bar"
+       fill_in "user_password", :with => "123"
+       fill_in "user_password_confirmation", :with => "123456"
+       click_button "Update User"
+     end
+     subject { page }
+     it { current_path.should == user_path(User.last) }
+     it { should have_content "Email is invalid" }
+     it { should have_field "user_email", with: "foo bar" }
+     it { should have_field "user_password" }
+     it { should have_field "user_password_confirmation" }
+   end
+  end
+
   describe "Creating" do
     describe "with valid params" do
       before do
