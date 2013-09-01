@@ -10,8 +10,16 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.encrypt_token(token)
+    Digest::SHA1.hexdigest(token)
+  end
+
   private
     def create_remember_token
-      self.remember_token = Digest::SHA1.hexdigest(SecureRandom.urlsafe_base64)
+      self.remember_token = User.encrypt_token(User.new_token)
     end
 end
