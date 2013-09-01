@@ -1,0 +1,11 @@
+<div class="panel panel-default" style="margin-top:1em;">
+  <div class="panel-body">
+    <% if signed_in? %>
+      <%= link_to "Log out", logout_path, method: "delete" %>
+    <% else %>
+      Already have an account? <%= link_to "Log in", login_path %>
+      &middot;
+			Don't have an account yet? <%= link_to 'Sign up here', signup_users_path %>
+    <% end %>
+  </div>
+</div>
