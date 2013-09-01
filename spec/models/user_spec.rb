@@ -11,6 +11,7 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:list_items) }
 
   it { should be_valid }
 
@@ -87,5 +88,29 @@ describe User do
       it { should_not eq invalid_user }
       it { expect(invalid_user).to be_false }
     end
+  end
+
+  describe "list_items" do
+    before { @user.save }
+    let!(:older_item) do
+      FactoryGirl.create(:list_item, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_item) do
+      FactoryGirl.create(:list_item, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right items in the right order" do
+      expect(@user.list_items.to_a).to eq [newer_item, older_item]
+    end
+
+    it "should destroy list_items for a user" do
+      items = @user.list_items.to_a
+      @user.destroy
+      expect(items).not_to be_empty
+      items.each do |item|
+        expect(ListItem.where(id: item.id)).to be_empty
+      end
+    end
+
   end
 end

@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: true
   validates :email, presence: true, email: true, uniqueness: true
 
-  has_many :list_items
+  has_many :list_items, dependent: :destroy
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token
