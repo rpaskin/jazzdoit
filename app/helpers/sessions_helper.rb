@@ -11,9 +11,10 @@ module SessionsHelper
   end
 
 	def current_user
-		@current_user ||= nil
+    return @current_user if @current_user.present?
+		@current_user = nil
     token = User.encrypt_token(cookies[:remember_token]) 	if cookies[:remember_token].present?
-    @current_user ||= User.find_by(remember_token: token) if token.present?
+    @current_user = User.find_by(remember_token: token) if token.present?
   end
 
 	def signed_in?
