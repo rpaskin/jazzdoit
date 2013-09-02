@@ -1,4 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-8">
+    <% unless @user.list_items.blank? %>
+      <h3>TO DO <span class="badge"><%= @user.list_items.count %></span></h3>
+      <ol class="to-do-list">
+        <%= render @list_items %>
+      </ol>
+      <!-- %= will_paginate @list_items % -->
+    <% end %>
+  </div>
+  <div class="col-md-4"></div>
+</div>
 
-TODO LIST HERE:
-
+<div class="panel panel-default" style="margin-top:1em;">
+  <div class="panel-body">
+    <%= form_for(@list_item) do |f| %>
+      <div class="field">
+        <%= f.text_field :description, placeholder: "New todo description", size: 70 %>
+      </div>
+      <%= f.submit "Post", class: "btn btn-sm btn-primary" %>
+    <% end %>
+  </div>
+</div>
