@@ -1,10 +1,12 @@
 <div class="row">
   <div class="col-md-8">
     <% unless @user.list_items.blank? %>
-      <h3>TO DO <span class="badge"><%= @user.list_items.count %></span></h3>
-      <ol class="to-do-list">
+      <div class="page-header">
+        <h3>TO DO <small><span class="badge"><%= @user.list_items.count %></span></small></h3>
+      </div>
+      <ul class="list-group to-do-list">
         <%= render @list_items %>
-      </ol>
+      </ul>
       <!-- %= will_paginate @list_items % -->
     <% end %>
   </div>
