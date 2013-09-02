@@ -7,9 +7,8 @@ class ListItemsController < ApplicationController
 
   def create
 		@list_item = current_user.list_items.build(list_item_params)
-    if @list_item.save
-    else
-    	flash.now[:error] = "Unable to create"
+    unless @list_item.save
+	  	flash[:error] = "Unable to create"
     end
     redirect_to user_todo_list_path(current_user)
   end
