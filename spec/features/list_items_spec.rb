@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "AuthenticationPages" do
+describe "ListItemPages" do
 
   let(:user) { FactoryGirl.create(:user) }
 
@@ -20,7 +20,6 @@ describe "AuthenticationPages" do
     describe "add invalid item" do
       before do
         expect { click_button "Post" }.not_to change(ListItem, :count)
-        save_and_open_page
       end
       it { should have_content "Unable to create" }
     end
