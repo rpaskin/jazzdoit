@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :admin_only, except: [:signup_new, :signup_create, :todo_list, :login]
 
   def index
     @users = User.all
@@ -73,5 +74,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
+    end
+
+    def admin_only
+      redirect_to signup_users_path unless current_user_is_admin
     end
 end

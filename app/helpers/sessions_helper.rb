@@ -31,4 +31,8 @@ module SessionsHelper
       redirect_to login_url, notice: "Please log in."
     end
   end
+
+  def current_user_is_admin
+    signed_in? && current_user.id == 1
+  end
 end

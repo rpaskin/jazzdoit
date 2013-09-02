@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   def create
   	if required_params_present && create_user
+      # if current_user_is_admin then redirect_to users_path
   		redirect_to user_todo_list_path(current_user)
   	else
       flash.now[:error] = "Login incorrect" if flash.now[:error].blank?
