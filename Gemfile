@@ -16,7 +16,7 @@ gem 'jbuilder', '1.0.2'
 gem 'email_validator'
 gem 'bcrypt-ruby', '3.0.0'
 gem 'font-awesome-rails'
-
+gem 'will_paginate'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -24,6 +24,7 @@ group :development, :test do
   gem 'simplecov-rcov', :require => false
   gem 'simplecov-sublime-ruby-coverage', :require => false
   gem 'debugger'
+  gem 'faker'
 end
 
 group :test do
