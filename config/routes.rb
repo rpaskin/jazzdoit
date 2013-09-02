@@ -14,6 +14,9 @@ Jazzdoit::Application.routes.draw do
 
   get 'user/:id' => 'users#todo_list', as: "user_todo_list"
 
+  resources :list_items, only: [:create, :destroy]
+  match '/list_items/:id', to: 'list_items#done', via: 'post'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

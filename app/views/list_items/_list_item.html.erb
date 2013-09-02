@@ -1,0 +1,17 @@
+<% unless list_item.new_record? %>
+	<li style="margin-top:0.5em;">
+		<% if list_item.percent_done.to_i == 100 %>
+			<strike>
+		<% end %>
+
+	  <span class="description"><%= list_item.description %></span>
+	  <% unless list_item.percent_done.to_i == 0 %>
+		  <span class="description"><%= list_item.percent_done %>%</span>
+	  <% end %>
+	  <%= link_to 'Done', list_item_path(list_item), class: "btn btn-sm btn-info", style: "color: #fff;", method: :post %>
+
+		<% if list_item.percent_done.to_i == 100 %>
+			</strike>
+		<% end %>
+	</li>
+<% end %>
