@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @list_items = @user.list_items #.paginate(page: params[:page])
   end
 
   def new
@@ -60,7 +62,8 @@ class UsersController < ApplicationController
 
   def todo_list
     @user = User.find(params[:id])
-    # @user.todo_list.build
+    @list_items = @user.list_items
+    @list_item = @user.list_items.build
   end
 
   private
