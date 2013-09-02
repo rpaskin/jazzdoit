@@ -3,8 +3,6 @@ require 'spec_helper'
 describe "AuthenticationPages" do
 
   let(:created_user)     { FactoryGirl.create(:user) }
-  let(:built_user)       { FactoryGirl.build(:user) }
-  let(:valid_attributes) { FactoryGirl.attributes_for(:user) }
 
   subject { page }
 
