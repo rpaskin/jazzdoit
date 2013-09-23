@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :admin_only, except: [:signup_new, :signup_create, :todo_list, :login, :destroy_done_items]
+  before_action :verify_user, only: [:todo_list, :destroy_done_items]
 
   def index
     @users = User.all
@@ -86,5 +87,9 @@ class UsersController < ApplicationController
 
     def admin_only
       redirect_to signup_users_path unless current_user_is_admin
+    end
+
+    def verify_user
+      redirect_to user_todo_list_path(current_user) unless (current_user.id == params[:id].to_i)
     end
 end
