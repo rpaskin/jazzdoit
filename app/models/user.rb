@@ -18,6 +18,14 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token)
   end
 
+  def has_any_done_item?
+    done_items.count > 0
+  end
+
+  def done_items
+    self.list_items.where(percent_done: 100)
+  end
+
   private
     def create_remember_token
       self.remember_token = User.encrypt_token(User.new_token)

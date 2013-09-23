@@ -13,6 +13,9 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:list_items) }
 
+  it { should respond_to(:done_items) }
+  it { should respond_to(:has_any_done_item?) }
+
   it { should be_valid }
 
   it { should respond_to(:authenticate) }
@@ -90,10 +93,17 @@ describe User do
     end
   end
 
+  describe "user with no items" do
+    before { @user.save }
+    it { @user.done_items.should == [] }
+    it { @user.has_any_done_item?.should be_false }
+  end
+
   describe "list_items" do
     before { @user.save }
+
     let!(:older_item) do
-      FactoryGirl.create(:list_item, user: @user, created_at: 1.day.ago)
+      FactoryGirl.create(:list_item, user: @user, created_at: 1.day.ago, percent_done: 100)
     end
     let!(:newer_item) do
       FactoryGirl.create(:list_item, user: @user, created_at: 1.hour.ago)
@@ -104,13 +114,15 @@ describe User do
     end
 
     it "should destroy list_items for a user" do
-      items = @user.list_items.to_a
+      saved_items = @user.list_items.to_a
       @user.destroy
-      expect(items).not_to be_empty
-      items.each do |item|
+      expect(saved_items).not_to be_empty
+      saved_items.each do |item|
         expect(ListItem.where(id: item.id)).to be_empty
       end
     end
 
+    it { @user.done_items.count.should == 1 }
+    it { @user.has_any_done_item?.should be_true }
   end
 end
