@@ -70,6 +70,28 @@ describe "ListItemPages" do
         end
         it { should_not have_content @sentence2 }
       end
+
+      describe "delete all done" do
+        before do
+          @sentence3 = Faker::Lorem.sentence(8)
+          fill_in "list_item_description", with: @sentence3
+          click_button "Post"
+
+          within "#edit_list_item_1" do
+            click_link "Done"
+          end
+
+          within "#edit_list_item_2" do
+            click_link "Done"
+          end
+
+          expect { click_button "Delete All Done" }.to change(ListItem, :count).by(-2)
+        end
+        it { should_not have_content @sentence1 }
+        it { should_not have_content @sentence2 }
+        it { should_not have_content @sentence3 }
+      end
+
     end
   end
 

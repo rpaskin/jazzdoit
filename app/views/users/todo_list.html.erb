@@ -12,13 +12,24 @@
   <div class="col-md-4"></div>
 </div>
 
-<div class="panel panel-default" style="margin-top:1em;">
-  <div class="panel-body">
-    <%= form_for(@list_item) do |f| %>
-      <div class="field">
-        <%= f.text_field :description, placeholder: "New todo description", size: 70 %>
-      </div>
-      <%= f.submit "Post", class: "btn btn-sm btn-primary" %>
-    <% end %>
+<% if @user.has_any_done_item? %>
+<div class="row">
+  <div class="col-md-8"></div>
+  <div class="col-md-4">
+    <%= button_to "Delete All Done", user_destroy_done_items_path,  class: "btn btn-sm btn-primary pull-right", data: { confirm: 'Are you sure?' }, method: :delete %>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="panel panel-default" style="margin-top:1em;">
+    <div class="panel-body">
+      <%= form_for(@list_item) do |f| %>
+        <div class="field">
+          <%= f.text_field :description, placeholder: "New todo description", size: 70 %>
+        </div>
+        <%= f.submit "Post", class: "btn btn-sm btn-primary" %>
+      <% end %>
+    </div>
   </div>
 </div>

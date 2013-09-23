@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :admin_only, except: [:signup_new, :signup_create, :todo_list, :login]
+  before_action :admin_only, except: [:signup_new, :signup_create, :todo_list, :login, :destroy_done_items]
 
   def index
     @users = User.all
@@ -65,6 +65,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @list_items = @user.list_items
     @list_item = @user.list_items.build
+  end
+
+  def destroy_done_items
+    message = current_user.done_items.delete_all ? 'Deleted done items.' : 'Error deleting.'
+
+    respond_to do |format|
+      format.html { redirect_to current_user, notice: message }
+    end
   end
 
   private
