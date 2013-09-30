@@ -6,4 +6,6 @@ class ListItem < ActiveRecord::Base
 	validates :url, 				length: { maximum: 500 }
 
 	default_scope -> { order('created_at DESC') }
+
+	acts_as_list scope: :user
 end

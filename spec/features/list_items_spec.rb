@@ -71,6 +71,36 @@ describe "ListItemPages" do
         it { should_not have_content @sentence2 }
       end
 
+      context "reordering" do
+        describe "initial positions" do
+          it { ListItem.first.position.should == 2 }
+          it { ListItem.first.description.should == @sentence2 }
+
+          it { ListItem.last.position.should == 1 }
+          it { ListItem.last.description.should == @sentence1 }
+        end
+
+        describe "move down" do
+          before do
+            within "#edit_list_item_1" do
+              click_link "Move Down"
+            end
+          end
+          it { ListItem.first.position.should == 1 }
+          it { ListItem.last.position.should == 2 }
+        end
+
+        describe "move up" do
+          before do
+            within "#edit_list_item_2" do
+              click_link "Move Up"
+            end
+          end
+          it { ListItem.first.position.should == 1 }
+          it { ListItem.last.position.should == 2 }
+        end
+      end
+
       describe "delete all done" do
         before do
           @sentence3 = Faker::Lorem.sentence(8)

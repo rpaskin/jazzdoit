@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
   def todo_list
     @user = User.find(params[:id])
-    @list_items = @user.list_items
+    @list_items = @user.list_items.order(:position)
     @list_item = @user.list_items.build
   end
 

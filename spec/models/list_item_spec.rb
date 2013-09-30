@@ -13,6 +13,10 @@ describe ListItem do
   it { should respond_to(:url) }
   it { should respond_to(:percent_done) }
   it { should respond_to(:percent_updated_at) }
+  it { should respond_to(:position) }
+  it { should respond_to(:move_lower) }
+  it { should respond_to(:move_higher) }
+  it { should respond_to(:set_list_position) }
 
   it { should be_valid }
 
