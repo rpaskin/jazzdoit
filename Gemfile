@@ -16,7 +16,7 @@ gem 'jbuilder', '1.0.2'
 gem 'email_validator'
 gem 'bcrypt-ruby', '3.0.0'
 gem 'font-awesome-rails'
-gem 'will_paginate'
+gem 'acts_as_list'
 
 group :development, :test do
   gem 'rspec-rails'
