@@ -17,3 +17,5 @@
 /.watchr
 /coverage
 .DS_Store
+/log
+/unicorn
