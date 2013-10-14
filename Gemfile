@@ -39,3 +39,5 @@ group :production do
   gem 'rails_12factor', '0.0.2'
   gem 'mysql2'
 end
+
+gem 'rvm-capistrano'

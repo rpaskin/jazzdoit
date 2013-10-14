@@ -1,3 +1,4 @@
+require "rvm/capistrano"
 require "bundler/capistrano"
 
 set :application, "Jazzdoit"
@@ -8,9 +9,21 @@ set :deploy_via, :remote_cache
 
 set :deploy_to, "/home/ubuntu/rails_apps/cap/#{application}"
 
-server 'ec2-54-221-61-60.compute-1.amazonaws.com', :app, :web
+set :user, 'ubuntu'
+set :scm_username, 'rpaskin'
+ssh_options[:keys] = [File.join(ENV["HOME"], "ronnie-keypair.pem")]
+
+server 'ec2-54-221-61-60.compute-1.amazonaws.com', :app, :web, :db, :primary => true
 
 after 'deploy:update_code', 'deploy:migrate'
+
+namespace :deploy do
+	desc "Start app via app start script"
+	task :start, :roles => :app, :except => { :no_release => true } do
+
+	  run "cd /home/ubuntu/rails_apps/cap/Jazzdoit/current; ./start.sh &"
+	end
+end
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
