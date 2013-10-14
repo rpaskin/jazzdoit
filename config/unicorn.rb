@@ -7,3 +7,4 @@ stdout_path "#{root}/log/unicorn.log"
 #listen "/tmp/unicorn.jazzdoit.sock"
 worker_processes 2
 timeout 30
+listen "127.0.0.1:8080"
