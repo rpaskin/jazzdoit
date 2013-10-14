@@ -15,7 +15,7 @@ describe "ListItemPages" do
     end
 
     it { current_path.should == user_todo_list_path(user) }
-    it { should_not have_link('Delete', href: list_item_path(user)) }
+    it { should_not have_link('X', href: list_item_path(user)) }
 
     describe "add invalid item" do
       before do
@@ -52,20 +52,10 @@ describe "ListItemPages" do
         it { user.list_items.last.percent_done.should == 33 }
       end
 
-      describe "update item as done" do
-        before do
-          within "#edit_list_item_1" do
-            click_link "Done"
-          end
-        end
-        it { should have_content "100%" }
-        it { user.list_items.last.percent_done.should == 100 }
-      end
-
       describe "delete item" do
         before do
           within "#edit_list_item_2" do
-            expect { click_link "Delete" }.to change(ListItem, :count).by(-1)
+            expect { click_link "X" }.to change(ListItem, :count).by(-1)
           end
         end
         it { should_not have_content @sentence2 }
@@ -108,11 +98,13 @@ describe "ListItemPages" do
           click_button "Post"
 
           within "#edit_list_item_1" do
-            click_link "Done"
+            fill_in "list_item_percent_done", with: 100
+            click_button "Update"
           end
 
           within "#edit_list_item_2" do
-            click_link "Done"
+            fill_in "list_item_percent_done", with: 100
+            click_button "Update"
           end
 
           expect { click_button "Delete All Done" }.to change(ListItem, :count).by(-2)

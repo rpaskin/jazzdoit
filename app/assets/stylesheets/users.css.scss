@@ -16,3 +16,31 @@
 .list-group-item {
 	padding-bottom: 0;
 }
+
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #fff;
+	text-indent:-9999px;
+}
+
+.arrow-down {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #fff;
+	text-indent:-9999px;
+}
+
+.delete {
+	padding: 0;
+	width: 37px;
+	color: #fff !important;
+}
+
+.stack {
+	clear:right;
+}

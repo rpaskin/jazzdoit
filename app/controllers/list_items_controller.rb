@@ -22,11 +22,9 @@ class ListItemsController < ApplicationController
   def done
 	  if (params[:list_item][:percent_done] rescue nil)
 		  @list_item.percent_done = params[:list_item][:percent_done].to_i
-		else
-		  @list_item.percent_done = 100
+      @list_item.percent_updated_at = DateTime.now
+      @list_item.save
 		end
-	  @list_item.percent_updated_at = DateTime.now
-	  @list_item.save
     redirect_to user_todo_list_path(current_user)
   end
 

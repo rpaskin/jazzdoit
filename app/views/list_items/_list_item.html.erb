@@ -1,28 +1,27 @@
 <% unless list_item.new_record? %>
 	<li class="list-group-item">
-		<% if list_item.percent_done.to_i >= 100 %>
+		<%= form_for(list_item, action: "done") do |f| %>
 			<span class="list-item all-done"><%= list_item.description %></span>
-		  <%= link_to 'Delete', list_item_path(list_item), method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-right" %>
-		  <%= link_to 'Move Down', list_item_move_lower_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right", style: "color: #fff; margin-right: 5px;" %>
-		  <%= link_to 'Move Up', list_item_move_higher_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right", style: "color: #fff; margin-right: 5px;" %>
+
+		<%= f.text_field :percent_done, value: list_item.percent_done.to_i, size: 3, class: 'submit-on-blur', :'data-value' => list_item.percent_done.to_i %>%
+		<%= f.submit "Update", style: "position: fixed; left:-9999px;" %>
+
+		  <%= link_to 'X', list_item_path(list_item), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger pull-right delete stack" %>
+
 			<span class="badge pull-right"><%= list_item.percent_done.to_i %>%</span>
+
+		  <%= link_to(list_item_move_higher_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right stack", style: "color: #fff; margin-right: 5px;") do %>
+		  	<div class="arrow-up">Move Up</div>
+			<% end %>
+		  <%= link_to(list_item_move_lower_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right stack", style: "color: #fff; margin-right: 5px;") do %>
+			  	<div class="arrow-down">Move Down</div>
+		  <% end %>
+
+			<% @progress_style = (list_item.percent_done.to_i >= 100)? "progress-bar-success" : "progress-bar-info" %>
 			<div class="progress progress-striped progress-list-item">
-			  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= list_item.percent_done.to_i %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= list_item.percent_done.to_i %>%">
+			  <div class="progress-bar <%= @progress_style %>" role="progressbar" aria-valuenow="<%= list_item.percent_done.to_i %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= list_item.percent_done.to_i %>%">
 			  </div>
 			</div>
-		<% else %>
-	    <%= form_for(list_item, action: "done") do |f| %>
-				<span class="list-item"><%= list_item.description %></span>
-        <%= f.text_field :percent_done, value: list_item.percent_done.to_i, size: 3, class: 'submit-on-blur', :'data-value' => list_item.percent_done.to_i %>%
-				<%= f.submit "Update", style: "position: fixed; left:-9999px;" %>
-			  <%= link_to 'Delete', list_item_path(list_item), method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-right" %>
-			  <%= link_to 'Move Down', list_item_move_lower_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right", style: "color: #fff; margin-right: 5px;" %>
-			  <%= link_to 'Move Up', list_item_move_higher_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right", style: "color: #fff; margin-right: 5px;" %>
-				<div class="progress progress-striped progress-list-item">
-				  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= list_item.percent_done.to_i %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= list_item.percent_done.to_i %>%">
-				  </div>
-				</div>
-	    <% end %>
 		<% end %>
 	</li>
 <% end %>
