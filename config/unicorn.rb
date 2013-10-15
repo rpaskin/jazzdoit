@@ -1,7 +1,7 @@
 root = "/home/ubuntu/rails_apps/cap/Jazzdoit/current"
 
 working_directory root
-pid "#{root}/tmp/pids/unicorn.pid"
+pid "../../shared/pids/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
 stdout_path "#{root}/log/unicorn.log"
 

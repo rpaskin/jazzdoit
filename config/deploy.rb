@@ -19,7 +19,7 @@ after 'deploy:update_code', 'deploy:migrate'
 
 set :unicorn_binary, "unicorn_rails"
 set :unicorn_config, "#{current_path}/config/unicorn.rb"
-set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
+set :unicorn_pid, "#{current_path}/../../shared/pids/unicorn.pid"
 
 namespace :deploy do
   task :start, :roles => :app, :except => { :no_release => true } do
