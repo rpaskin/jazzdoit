@@ -26,9 +26,9 @@ describe ListItem do
   		it { should_not be_valid }
   	end
 
-  	describe "description is under 500 chars" do
+  	describe "description can take at least 501 chars" do
   		before { @list_item.description = "M" * 501 }
-  		it { should_not be_valid }
+  		it { should be_valid }
   	end
 
   	describe "url is under 500 chars" do
