@@ -47,3 +47,31 @@
 .stack {
 	clear:right;
 }
+
+.list-group-item:hover .description {
+	opacity: 0.8;
+}
+
+.description {
+	font-size:90%;
+	opacity: 0.7;
+}
+
+.list-group-item .description-field {
+	display: none;
+}
+.list-group-item .description-text {
+	display: block;
+	opacity: 0.4;
+}
+.list-group-item .description-text b {
+	opacity:1;
+	font-size:120%;
+}
+
+.list-group-item:hover .description-field {
+	display: block;
+}
+.list-group-item:hover .description-text {
+	display: none;
+}

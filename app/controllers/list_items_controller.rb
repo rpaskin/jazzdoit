@@ -1,7 +1,7 @@
 class ListItemsController < ApplicationController
   before_action :signed_in_user
 	before_action :correct_user_for_item,   only: :destroy
-  before_action :set_list_item, only: [:done, :move_lower, :move_higher]
+  before_action :set_list_item, only: [:update, :move_lower, :move_higher]
 
   def index
   end
@@ -19,7 +19,11 @@ class ListItemsController < ApplicationController
     redirect_to user_todo_list_path(current_user)
   end
 
-  def done
+  def update
+    if (params[:list_item][:description] rescue nil)
+      @list_item.description = params[:list_item][:description]
+      @list_item.save
+    end
 	  if (params[:list_item][:percent_done] rescue nil)
 		  @list_item.percent_done = params[:list_item][:percent_done].to_i
       @list_item.percent_updated_at = DateTime.now
@@ -41,7 +45,7 @@ class ListItemsController < ApplicationController
 	private
 
     def list_item_params
-      params.require(:list_item).permit(:description)
+      params.require(:list_item).permit(:title)
     end
 
 		def correct_user_for_item

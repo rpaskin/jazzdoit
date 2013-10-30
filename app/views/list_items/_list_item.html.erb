@@ -3,13 +3,30 @@
 		<%= form_for(list_item, action: "done") do |f| %>
 		<div class="row">
 		  <div class="col-md-8">
-				<span class="list-item all-done"><%= list_item.description %></span>
+
+			<% @title_style = (list_item.percent_done.to_i >= 100)? "all-done" : "" %>
+
+				<span class="list-item <%= @title_style %>"><%= list_item.title %></span>
 
 				<% @progress_style = (list_item.percent_done.to_i >= 100)? "progress-bar-success" : "progress-bar-info" %>
 				<div class="progress progress-striped progress-list-item">
 				  <div class="progress-bar <%= @progress_style %>" role="progressbar" aria-valuenow="<%= list_item.percent_done.to_i %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= list_item.percent_done.to_i %>%">
 				  </div>
 				</div>
+
+				<div class="description">
+          <div class="field description-field">
+            <%= f.text_area :description, placeholder: "Description", rows: 4, columns: 70, class: 'submit-on-blur' %>
+          </div>
+	          <div class="field description-text">
+							<% if list_item.description.blank? %>
+								<B>Add a description here<B>
+							<% else %>
+									<%= list_item.description %>
+							<% end %>
+						</div>
+				</div>
+
 		  </div>
 		  <div class="col-md-3" class="percentage-box">
 				<%= f.text_field :percent_done, value: list_item.percent_done.to_i, size: 3, class: 'submit-on-blur', :'data-value' => list_item.percent_done.to_i %>%

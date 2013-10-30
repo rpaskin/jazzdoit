@@ -27,11 +27,11 @@ describe "ListItemPages" do
     describe "add item" do
       before do
         @sentence1 = Faker::Lorem.sentence(8)
-        fill_in "list_item_description", with: @sentence1
+        fill_in "list_item_title", with: @sentence1
         expect { click_button "Post" }.to change(ListItem, :count).by(1)
 
         @sentence2 = Faker::Lorem.sentence(8)
-        fill_in "list_item_description", with: @sentence2
+        fill_in "list_item_title", with: @sentence2
         expect { click_button "Post" }.to change(ListItem, :count).by(1)
       end
 
@@ -40,6 +40,7 @@ describe "ListItemPages" do
       it { should_not have_content "Unable to create" }
       it { should     have_content @sentence1 }
       it { should     have_content @sentence2 }
+      it { should     have_content "Add a description here" }
 
       describe "update item" do
         before do
@@ -50,6 +51,30 @@ describe "ListItemPages" do
         end
         it { find('#edit_list_item_1').find('#list_item_percent_done').value.should == "33" }
         it { user.list_items.last.percent_done.should == 33 }
+      end
+
+      describe "update descriptions" do
+        before do
+          @sentence4 = Faker::Lorem.sentence(12)
+          within "#edit_list_item_1" do
+            fill_in "list_item_description", with: @sentence4
+            click_button "Update"
+          end
+        end
+        it { user.list_items.last.description.should == @sentence4 }
+        it { should have_content @sentence4 }
+
+        context "update all descriptions" do
+          before do
+            @sentence5 = Faker::Lorem.sentence(12)
+            within "#edit_list_item_2" do
+              fill_in "list_item_description", with: @sentence5
+              click_button "Update"
+            end
+          end
+          it { should     have_content @sentence5 }
+          it { should_not have_content "Add a description here" }
+        end
       end
 
       describe "delete item" do
@@ -64,10 +89,10 @@ describe "ListItemPages" do
       context "reordering" do
         describe "initial positions" do
           it { ListItem.first.position.should == 2 }
-          it { ListItem.first.description.should == @sentence2 }
+          it { ListItem.first.title.should == @sentence2 }
 
           it { ListItem.last.position.should == 1 }
-          it { ListItem.last.description.should == @sentence1 }
+          it { ListItem.last.title.should == @sentence1 }
         end
 
         describe "move down" do
@@ -94,7 +119,7 @@ describe "ListItemPages" do
       describe "delete all done" do
         before do
           @sentence3 = Faker::Lorem.sentence(8)
-          fill_in "list_item_description", with: @sentence3
+          fill_in "list_item_title", with: @sentence3
           click_button "Post"
 
           within "#edit_list_item_1" do
