@@ -4,11 +4,12 @@ describe ListItem do
   let(:user) { FactoryGirl.create(:user) }
 
   before(:each) do
-    @list_item = ListItem.new(description: "abcdefgh", user_id: user.id )
+    @list_item = ListItem.new(description: "abcdefgh", user_id: user.id, title: "foobar" )
   end
 
   subject { @list_item }
 
+  it { should respond_to(:title) }
   it { should respond_to(:description) }
   it { should respond_to(:url) }
   it { should respond_to(:percent_done) }
@@ -21,10 +22,15 @@ describe ListItem do
   it { should be_valid }
 
   describe "validations" do
-  	describe "description is present" do
+  	describe "description is not present" do
   		before { @list_item.description = "" }
-  		it { should_not be_valid }
+  		it { should be_valid }
   	end
+
+    describe "title is under 500 chars" do
+      before { @list_item.url = "M" * 501 }
+      it { should_not be_valid }
+    end
 
   	describe "description can take at least 501 chars" do
   		before { @list_item.description = "M" * 501 }
@@ -44,6 +50,11 @@ describe ListItem do
 
 	describe "when user_id is not present" do
     before { @list_item.user_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when title is not present" do
+    before { @list_item.title = "" }
     it { should_not be_valid }
   end
 end

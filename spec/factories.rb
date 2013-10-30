@@ -12,7 +12,8 @@ FactoryGirl.define do
   end
 
 	factory :list_item do
-    description "foobar foobar"
+    title "foobar foobar"
+    description "barfoo barfoo"
     url "http://foo/bar/1"
 	  user
 	end

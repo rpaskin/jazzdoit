@@ -1,9 +1,9 @@
 class ListItem < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :description, :user_id
-	validates :description, presence: true
+  validates_presence_of :title, :user_id
 	validates :url, 				length: { maximum: 500 }
+	validates :title, 			length: { maximum: 500 }, presence: true
 
 	default_scope -> { order('created_at DESC') }
 
