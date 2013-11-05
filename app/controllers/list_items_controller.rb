@@ -49,7 +49,7 @@ class ListItemsController < ApplicationController
 	private
 
     def list_item_params
-      params.require(:list_item).permit(:title)
+      params.require(:list_item).permit(:title, :file, :description, :percent_done)
     end
 
 		def correct_user_for_item
