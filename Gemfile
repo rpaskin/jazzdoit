@@ -18,6 +18,9 @@ gem 'bcrypt-ruby', '3.0.0'
 gem 'font-awesome-rails'
 gem 'acts_as_list'
 gem 'jquery-rails'
+gem 'carrierwave'
+gem 'protected_attributes'
+
 
 group :development, :test do
   gem 'rspec-rails'

@@ -20,6 +20,10 @@ class ListItemsController < ApplicationController
   end
 
   def update
+    if (params[:list_item][:file] rescue nil)
+      @list_item.file = params[:list_item][:file]
+      @list_item.save
+    end
     if (params[:list_item][:description] rescue nil)
       @list_item.description = params[:list_item][:description]
       @list_item.save

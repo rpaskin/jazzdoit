@@ -1,6 +1,6 @@
 <% unless list_item.new_record? %>
 	<li class="list-group-item">
-		<%= form_for(list_item, action: "done") do |f| %>
+		<%= form_for(list_item, action: "done", :html => {:multipart => true}) do |f| %>
 		<div class="row">
 		  <div class="col-md-8">
 
@@ -30,6 +30,17 @@
 		  <div class="col-md-3" class="percentage-box">
 				<%= f.text_field :percent_done, value: list_item.percent_done.to_i, size: 3, class: 'submit-on-blur', :'data-value' => list_item.percent_done.to_i %>%
 				<%= f.submit "Update", style: "position: fixed; left:-9999px;" %>
+
+					<% if list_item.file? %>
+						<div class="attached">
+							<%= link_to "open attachment", list_item.file_url, :target => "_blank" %>
+						</div>
+					<% else %>
+						<div class="file">
+					    <%= f.file_field :file, class: "btn btn-sm" %>
+							<%= f.submit "Upload", class: "btn btn-sm" %>
+						</div>
+					<% end %>
 		  </div>
 		  <div class="col-md-1">
 			  <%= link_to 'X', list_item_path(list_item), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger pull-right delete stack" %>
