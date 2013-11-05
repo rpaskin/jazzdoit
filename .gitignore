@@ -19,3 +19,5 @@
 .DS_Store
 /log
 /unicorn
+/public/uploads/list_item
+.vagrant
