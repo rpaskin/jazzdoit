@@ -1,8 +1,6 @@
 class ListItem < ActiveRecord::Base
 	mount_uploader :file, FileUploader
 
-	attr_accessible :file
-
   belongs_to :user
 
   validates_presence_of :title, :user_id

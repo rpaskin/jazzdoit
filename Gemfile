@@ -19,7 +19,6 @@ gem 'font-awesome-rails'
 gem 'acts_as_list'
 gem 'jquery-rails'
 gem 'carrierwave'
-gem 'protected_attributes'
 
 
 group :development, :test do
