@@ -4,6 +4,6 @@
 
 $(document).ready ->
   $(".submit-on-blur").blur (ev) ->
-    originalValue = parseInt($(this).data("value"))
-    newValue = parseInt($(this).val())
+    originalValue = $(this).data("value").toString()
+    newValue = $(this).val().toString()
     $(this).closest("form").submit() unless originalValue is newValue

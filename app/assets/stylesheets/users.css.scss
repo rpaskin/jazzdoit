@@ -20,36 +20,34 @@
 	width:100%;
 }
 
-.arrow-up {
+.arrow {
 	width: 0;
 	height: 0;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-bottom: 5px solid #fff;
 	text-indent:-9999px;
 }
 
+.arrow-up {
+	@extend .arrow;
+	border-bottom: 5px solid #fff;
+}
+
 .arrow-down {
-	width: 0;
-	height: 0;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
+	@extend .arrow;
 	border-top: 5px solid #fff;
-	text-indent:-9999px;
 }
 
 .delete {
 	padding: 0;
-	width: 37px;
+	width: 33px;
 	color: #fff !important;
 }
-
+.move-btn {
+	color: #fff
+}
 .stack {
 	clear:right;
-}
-
-.list-group-item:hover .description {
-	opacity: 0.8;
 }
 
 .description {
@@ -57,21 +55,38 @@
 	opacity: 0.7;
 }
 
-.list-group-item .description-field {
-	display: none;
-}
-.list-group-item .description-text {
-	display: block;
-	opacity: 0.4;
-}
-.list-group-item .description-text b {
-	opacity:1;
-	font-size:120%;
+.list-group-item {
+	.file {
+		margin-top:2em;
+	}
+	.description-field, .file {
+		display: none;
+	}
+	.description-field textarea {
+		border: 0;
+		background: transparent;
+	}
+	.description-text {
+		display: block;
+		opacity: 0.4;
+
+		b {
+			opacity:1;
+			font-size:120%;
+		}
+	}
 }
 
-.list-group-item:hover .description-field {
-	display: block;
-}
-.list-group-item:hover .description-text {
-	display: none;
+.list-group-item:hover {
+	background-color: rgba(0,0,255,0.03);
+
+	.description {
+		opacity: 0.8;
+	}
+	.description-field, .file {
+		display: block;
+	}
+	.description-text {
+		display: none;
+	}
 }

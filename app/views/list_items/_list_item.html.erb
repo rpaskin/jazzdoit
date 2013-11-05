@@ -16,7 +16,7 @@
 
 				<div class="description">
           <div class="field description-field">
-            <%= f.text_area :description, placeholder: "Description", rows: 4, columns: 70, class: 'submit-on-blur' %>
+            <%= f.text_area :description, placeholder: "Description", rows: 4, columns: 70, class: 'submit-on-blur', :'data-value' => list_item.description  %>
           </div>
 	          <div class="field description-text">
 							<% if list_item.description.blank? %>
@@ -26,7 +26,6 @@
 							<% end %>
 						</div>
 				</div>
-
 		  </div>
 		  <div class="col-md-3" class="percentage-box">
 				<%= f.text_field :percent_done, value: list_item.percent_done.to_i, size: 3, class: 'submit-on-blur', :'data-value' => list_item.percent_done.to_i %>%
@@ -35,10 +34,10 @@
 		  <div class="col-md-1">
 			  <%= link_to 'X', list_item_path(list_item), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger pull-right delete stack" %>
 
-			  <%= link_to(list_item_move_higher_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right stack", style: "color: #fff; margin-right: 5px;") do %>
+			  <%= link_to(list_item_move_higher_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right stack move-btn") do %>
 			  	<div class="arrow-up">Move Up</div>
 				<% end %>
-			  <%= link_to(list_item_move_lower_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right stack", style: "color: #fff; margin-right: 5px;") do %>
+			  <%= link_to(list_item_move_lower_path(list_item), method: :post, class: "btn btn-sm btn-primary pull-right stack move-btn") do %>
 				  	<div class="arrow-down">Move Down</div>
 			  <% end %>
 			</div>
