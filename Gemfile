@@ -28,6 +28,7 @@ group :development, :test do
   gem 'simplecov-sublime-ruby-coverage', :require => false
   gem 'debugger'
   gem 'faker'
+  gem 'carrierwave_direct'
 end
 
 group :test do

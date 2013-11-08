@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "ListItemPages" do
+  include CarrierWaveDirect::Test::CapybaraHelpers
 
   let(:user) { FactoryGirl.create(:user) }
 
@@ -75,6 +76,16 @@ describe "ListItemPages" do
           it { should     have_content @sentence5 }
           it { should_not have_content "Add a description here" }
         end
+      end
+
+      describe "upload file" do
+        before do
+          within "#edit_list_item_1" do
+            attach_file 'list_item[file]', File.join(Rails.root, 'spec', 'fixtures', 'image.jpg')
+            click_button "Update"
+          end
+        end
+        it { should have_link "attachment" }
       end
 
       describe "delete item" do
