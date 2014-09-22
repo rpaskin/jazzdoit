@@ -17,7 +17,6 @@ gem 'email_validator'
 gem 'bcrypt-ruby', '3.0.0'
 gem 'font-awesome-rails'
 gem 'acts_as_list'
-gem 'jquery-rails'
 gem 'carrierwave'
 
 
@@ -35,6 +34,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'factory_girl_rails'
+  gem 'selenium-webdriver'
 end
 
 group :production do
